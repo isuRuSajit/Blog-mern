@@ -1,13 +1,14 @@
-import React from "react";
 import Post from "../post";
-function index() {
-  return (
-    <>
-      <Post />
-      <Post />
-      <Post />
-    </>
-  );
-}
+import { useEffect, useState } from "react";
 
-export default index;
+export default function Index() {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/post").then((response) => {
+      response.json().then((posts) => {
+        setPosts(posts);
+      });
+    });
+  }, []);
+  return <>{posts.length > 0 && posts.map((post) => <Post {...post} />)}</>;
+}
