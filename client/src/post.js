@@ -1,33 +1,32 @@
-import React from "react";
+import { formatISO9075 } from "date-fns";
+import { Link } from "react-router-dom";
 
-function post() {
+export default function Post({
+  _id,
+  title,
+  summary,
+  cover,
+  content,
+  createdAt,
+  author,
+}) {
   return (
-    <div>
-      {" "}
-      <div className="post">
-        <div className="image">
-          <img
-            src="https://media.istockphoto.com/id/1173733636/photo/three-zebras.jpg?s=612x612&w=0&k=20&c=lhYWP5XkeiCWeOlG6lDHa37amGrG7W_fZFvmhV-kIyU="
-            alt=""
-          />
-        </div>
-
-        <div className="text">
-          <h2>Lorem Ipsum is simply dummy text of the</h2>
-          <p className="info">
-            <a href="/" className="author">
-              Isuru Sajith
-            </a>
-            <time>2023-01-06 16:45</time>
-          </p>
-          <p>
-            Lorem Ipsum is simply dummy text of the e 1500s, when an unknown
-            printer took a galley of type
-          </p>
-        </div>
-      </div>{" "}
+    <div className="post">
+      <div className="image">
+        <Link to={`/post/${_id}`}>
+          <img src={"http://localhost:5000/" + cover} alt="" />
+        </Link>
+      </div>
+      <div className="texts">
+        <Link to={`/post/${_id}`}>
+          <h2>{title}</h2>
+        </Link>
+        <p className="info">
+          <a className="author">{author.username}</a>
+          <time>{formatISO9075(new Date(createdAt))}</time>
+        </p>
+        <p className="summary">{summary}</p>
+      </div>
     </div>
   );
 }
-
-export default post;
